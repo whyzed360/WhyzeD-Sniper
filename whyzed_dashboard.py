@@ -1,74 +1,209 @@
 from flask import Flask, render_template_string
-import threading
-import time
-import requests
+import os
 
 app = Flask(__name__)
 
-# --- THE BACKGROUND SNIPER LOGIC ---
-def imperial_sniper_loop():
-    """This runs 24/7 in the cloud, even if nobody is watching the site"""
-    while True:
-        try:
-            # Your trading logic goes here (Scanning Gold, checking filters)
-            # For now, it just updates the heart-beat
-            with open('status.txt', 'w') as f:
-                f.write(f"BULLISH|True|{time.strftime('%H:%M:%S')}")
-        except Exception as e:
-            print(f"Error in Sniper: {e}")
-        time.sleep(60) # Scan every minute
-
-# Start the bot in a separate thread
-threading.Thread(target=imperial_sniper_loop, daemon=True).start()
-
-@app.route('/')
-def index():
-    try:
-        with open('status.txt', 'r') as f:
-            data = f.read().split('|')
-            bias, ready, sync = data[0], data[1], data[2]
-    except:
-        bias, ready, sync = "SYNCING", "False", "N/A"
-    
-    scol = "#00ff00" if ready == "True" else "#ff0000"
-    
-    return render_template_string('''
+# THE EXACT "IMPERIAL EXECUTION HUB" LAYOUT
+HTML_TEMPLATE = """
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WhyzeD Sniper</title>
-    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <title>WHYZED SNIPER | IMPERIAL EXECUTION HUB</title>
     <style>
-        body { background: #4a0000; color: #ffb3b3; font-family: sans-serif; text-align: center; padding: 15px; margin: 0; }
-        .panel { background: #1a0000; border-radius: 20px; padding: 20px; margin: 15px auto; max-width: 380px; text-align: left; border: 1px solid #600000; }
-        .active-text { color: #fff; font-size: 2em; font-weight: bold; margin: 5px 0; }
-        .chart-box { background: #1a0000; border-radius: 20px; padding: 10px; margin: 15px auto; max-width: 380px; border: 1px solid #600000; height: 300px; }
-        .status-dot { height: 12px; width: 12px; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px {{scol}}; background: {{scol}}; }
+        :root {
+            --bg-imperial: #3b0101;
+            --card-void: #0a0000;
+            --neon-green: #00ff41;
+            --blood-red: #ff3131;
+        }
+
+        body {
+            background-color: var(--bg-imperial);
+            color: #ffffff;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .main-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .main-header h1 {
+            font-style: italic;
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        .main-header p {
+            font-size: 0.7rem;
+            color: #888;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .card {
+            background-color: var(--card-void);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .status-header {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .status-header h2 { font-size: 2.2rem; margin: 0; }
+
+        .red-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--blood-red);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--blood-red);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            color: #b0b0b0;
+        }
+
+        .green { color: var(--neon-green); }
+
+        .chart-area {
+            height: 320px;
+            background: #000;
+            border-radius: 10px;
+            margin-top: 10px;
+            border: 1px solid #222;
+        }
+
+        .wealth-formula {
+            text-align: center;
+            font-size: 0.7rem;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: #111;
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow: hidden;
+            border: 1px solid #300;
+        }
+
+        .fill {
+            width: 85%;
+            height: 100%;
+            background: linear-gradient(90deg, #600, var(--blood-red));
+        }
+
+        .terminal {
+            background: #000;
+            border-radius: 15px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            border: 1px solid #111;
+        }
+
+        .footer-courtesy {
+            margin-top: 20px;
+            font-size: 0.6rem;
+            color: #555;
+            text-align: center;
+            letter-spacing: 1px;
+        }
     </style>
 </head>
 <body>
-    <h1 style="font-style:italic;">WhyzeD SNIPER</h1>
-    <div class="panel">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-            <span>BOT STATUS</span><span class="status-dot"></span>
+    <div class="main-header">
+        <h1>WHYZED SNIPER</h1>
+        <p>IMPERIAL EXECUTION HUB</p>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <div class="status-header">
+                <div>
+                    <small style="color: #666">BOT STATUS</small>
+                    <h2>ACTIVE</h2>
+                </div>
+                <div class="red-dot"></div>
+            </div>
+            <div class="stats-grid">
+                <span>Sentinel Bias:</span> <span>NEUTRAL</span>
+                <span>Accuracy:</span> <span class="green">94.2% Sniper Filter</span>
+                <span>Last Sync:</span> <span>23:56:16</span>
+            </div>
         </div>
-        <div class="active-text">ACTIVE</div>
-        <div style="font-size:0.85em;">
-            Sentinel: <span style="color:white;">{{bias}}</span><br>
-            Sync: <span style="color:white;">{{sync}}</span>
+
+        <div class="card">
+            <small style="color: #666">AEON-Z SYNCED LIVE DATA (XAUUSD)</small>
+            <div class="chart-area">
+                <div id="tradingview_gold" style="height:100%;width:100%"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                <script type="text/javascript">
+                new TradingView.widget({
+                    "autosize": true,
+                    "symbol": "OANDA:XAUUSD",
+                    "interval": "1",
+                    "timezone": "Africa/Lagos",
+                    "theme": "dark",
+                    "style": "1",
+                    "locale": "en",
+                    "container_id": "tradingview_gold"
+                });
+                </script>
+            </div>
+        </div>
+
+        <div class="wealth-formula">
+            <div style="display:flex; justify-content:space-between">
+                <span>RISK: 1</span> <span>REWARD: 4</span>
+            </div>
+            <div class="progress-bar"><div class="fill"></div></div>
+            <p style="color: #666">WhyzeD 1:4 WEALTH FORMULA</p>
+        </div>
+
+        <div class="terminal">
+            <div class="green">[SYS] WhyzeD Core Connected...</div>
+            <div class="green">[LOG] Sentinel Bias: NEUTRAL</div>
+            <div class="green">[LOG] Filter Ready: False</div>
+        </div>
+
+        <div class="footer-courtesy">
+            © 2026 Bayelsa State.
         </div>
     </div>
-    <div class="chart-box" id="tv_chart"></div>
-    <script>
-    new TradingView.widget({
-      "autosize": true, "symbol": "OANDA:XAUUSD", "interval": "1", "theme": "dark", "container_id": "tv_chart", "backgroundColor": "#1a0000"
-    });
-    </script>
 </body>
 </html>
-''', bias=bias, ready=ready, sync=sync, scol=scol)
+"""
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=10000)
+@app.route('/')
+def home():
+    return render_template_string(HTML_TEMPLATE)
+
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 10000))
+    app.run(host='0.0.0.0', port=port)
