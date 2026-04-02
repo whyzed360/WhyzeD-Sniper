@@ -153,7 +153,7 @@ HTML_TEMPLATE = """
             </div>
             <div class="stats-grid">
                 <span>Sentinel Bias:</span> <span>NEUTRAL</span>
-                <span>Accuracy:</span> <span class="green">94.2% Sniper Filter</span>
+                <span>Accuracy:</span> <span class="green">75.0% Sniper Filter</span>
                 <span>Last Sync:</span> <span>23:56:16</span>
             </div>
         </div>
