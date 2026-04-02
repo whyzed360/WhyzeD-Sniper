@@ -1,0 +1,12 @@
+# WhyzeD Programming Language (Zed)
+# This is a compiler WRITTEN in Zed.
+
+Set System_Ready 1
+
+# If System is Ready, we generate the final Infrastructure
+Compare System_Ready 1
+
+# The Generate command here creates the 'Sovereign' executable logic
+Generate /data/data/com.termux/files/home/WHYZED_EMPIRE/ZedLang/core/zed.zed #_Sovereign_Logic_Activated
+
+Show System_Ready

@@ -1,0 +1,12 @@
+# OriginVote Preparedness App
+BuildFile /data/data/com.termux/files/home/WHYZED_EMPIRE/ZedLang/core/vote_engine.c
+Write #include <stdio.h>
+Write int main() {
+Write   printf("--- WhyzeD OriginVote Engine Active ---\n");
+Write   printf("Location: Bayelsa State Headquarters\n");
+Write   printf("Status: Secure and Decentralized\n");
+Write   return 0;
+Write }
+CloseFile
+
+Launch

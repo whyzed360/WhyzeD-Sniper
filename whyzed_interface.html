@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --bg-color: #3b0101;
+            --card-bg: #1a0101;
+            --text-main: #ffffff;
+            --accent-green: #00ff41;
+            --accent-red: #ff3131;
+            --terminal-text: #00ff41;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        /* Bot Status Section */
+        .status-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .status-header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            background-color: var(--accent-red);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-red);
+        }
+
+        .stats-grid {
+            margin-top: 10px;
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            row-gap: 5px;
+            font-size: 0.9rem;
+            color: #b0b0b0;
+        }
+
+        .value-green { color: var(--accent-green); }
+
+        /* Chart Section Placeholder */
+        .chart-area {
+            height: 250px;
+            background: #0d0d0d;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #333;
+            margin-top: 10px;
+        }
+
+        /* Risk/Reward Section */
+        .risk-reward {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: linear-gradient(90deg, var(--accent-red) 85%, transparent 100%);
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .formula-text {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #888;
+        }
+
+        /* Terminal Section */
+        .terminal {
+            background-color: #000000;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.85rem;
+            border: 1px solid #222;
+        }
+
+        .log-sys { color: var(--accent-green); }
+
+        .location-tag {
+            text-align: right;
+            font-size: 0.7rem;
+            color: #555;
+            margin-top: 8px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <div class="status-header">
+            <div>
+                <div style="font-size: 0.7rem; color: #ff3131; margin-bottom: 5px;">BOT STATUS</div>
+                <h1>ACTIVE</h1>
+            </div>
+            <div class="status-indicator"></div>
+        </div>
+        <div class="stats-grid">
+            <div>Sentinel Bias:</div><div>NEUTRAL</div>
+            <div>Accuracy:</div><div class="value-green">94.2% Sniper Filter</div>
+            <div>Last Sync:</div><div>N/A</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div style="font-size: 0.75rem; margin-bottom: 10px;">AEON-Z LIVE (XAUUSD)</div>
+        <div class="chart-area">
+            <span style="color: #444;">[ TRADING VIEW WIDGET LOAD ]</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="risk-reward">
+            <span>RISK: 1</span>
+            <span>REWARD: 4</span>
+        </div>
+        <div class="progress-bar"></div>
+        <div class="formula-text">WhyzeD 1:4 WEALTH FORMULA</div>
+    </div>
+
+    <div class="terminal">
+        <div class="log-sys">[SYS] WhyzeD Core Connected...</div>
+        <div class="log-sys">[LOG] Sentinel Bias: NEUTRAL | Filter Ready: False</div>
+        <div class="location-tag">COURTESY: BAYELSA STATE, NIGERIA</div>
+    </div>
+</div>
+
+</body>
+</html>

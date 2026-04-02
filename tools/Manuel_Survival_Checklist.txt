@@ -1,0 +1,26 @@
+cat << 'EOF' > ~/WHYZED_EMPIRE/tools/Manual_Survival_Checklist.txt
+--- WHYZE D EMPIRE: $9 TO $100 SURVIVAL CHECKLIST ---
+
+1. [ ] MARKET TIME: Is it between 9:00 AM and 5:00 PM WAT? 
+       (Avoid the "Dead Zones" where Gold just wanders sideways).
+
+2. [ ] THE TREND (M15): Is the price ABOVE the 50 EMA?
+       (If YES, I am ONLY looking for Buys. If NO, I am ONLY looking for Sells).
+
+3. [ ] THE MOMENTUM (RSI): Is the RSI showing strength?
+       (Buy only if RSI > 55. Sell only if RSI < 45).
+
+4. [ ] THE PULLBACK: Did I wait for the price to touch the EMA?
+       (Never chase a big candle. Wait for the market to come back to you).
+
+5. [ ] THE SPREAD: Is the gap between Buy and Sell price small?
+       (If the spread is more than $0.30, the "tax" is too high for $9).
+
+6. [ ] THE RISK: Have I set my Stop Loss to exactly -$1.00?
+       (If this trade fails, I MUST have $8 left to fight another day).
+
+7. [ ] THE TARGET: Is my Take Profit set to +$3.00?
+       (Stick to the 1:3 ratio. Don't close early out of fear!)
+
+--- NO CHECK, NO TRADE. SURVIVAL FIRST. ---
+EOF

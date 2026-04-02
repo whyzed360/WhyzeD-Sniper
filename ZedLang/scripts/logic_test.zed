@@ -1,0 +1,6 @@
+# OriginVote Logic Test
+Set VoterID 101
+# Check if VoterID is 101
+Compare VoterID 101
+# If the comparison is true, we output the status
+Show VoterID

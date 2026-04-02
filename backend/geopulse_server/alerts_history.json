@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1773777312676,
+    "userId": "user_01",
+    "type": "ANOMALY",
+    "message": "Excessive Speed Detected",
+    "time": "2026-03-17T19:55:12.594Z"
+  },
+  {
+    "id": 1773778300646,
+    "userId": "sim_user_01",
+    "type": "GEOFENCE",
+    "message": "Entered Home Office",
+    "time": "2026-03-17T20:11:40.637Z"
+  },
+  {
+    "id": 1773778303609,
+    "userId": "sim_user_01",
+    "type": "ANOMALY",
+    "message": "Excessive Speed Detected",
+    "time": "2026-03-17T20:11:43.605Z"
+  }
+]

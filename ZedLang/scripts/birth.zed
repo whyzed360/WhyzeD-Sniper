@@ -1,0 +1,4 @@
+Set System_Active 1
+# This should now work with spaces
+Generate /data/data/com.termux/files/home/WHYZED_EMPIRE/ZedLang/scripts/child.zed #_Created_by_WhyzeD_Empire
+Show System_Active

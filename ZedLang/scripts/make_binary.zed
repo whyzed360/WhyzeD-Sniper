@@ -1,0 +1,11 @@
+# Clean WhyzeD Generation
+BuildFile /data/data/com.termux/files/home/WHYZED_EMPIRE/ZedLang/core/fast_bot.c
+Write #include <stdio.h>
+Write int main() {
+Write   printf("WhyzeD High-Speed Binary Active\n");
+Write   return 0;
+Write }
+CloseFile
+
+Set System_Generated 1
+Show System_Generated

@@ -1,0 +1,13 @@
+{
+  "name": "whyzed-store",
+  "version": "1.0.0",
+  "description": "WhyzeD Independent Android App Store Repository",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["android", "apk", "app-store", "whyzed"],
+  "author": "WhyzeD",
+  "license": "ISC",
+  "type": "commonjs"
+}

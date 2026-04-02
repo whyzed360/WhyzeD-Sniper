@@ -1,0 +1,5 @@
+*.keystore
+*.bin
+whyzed_chip
+node_modules/
+.env
